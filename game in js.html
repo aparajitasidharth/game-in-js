@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Merriweather:ital,wght@1,300&family=Pixelify+Sans:wght@400;500&family=Playfair+Display&family=Titillium+Web:ital,wght@1,600&display=swap"
+      rel="style sheet"
+    />
+    <style>
+      body {
+        background-color: black;
+        color: white;
+        font-family: "Bebas Neue";
+      }
+
+      input {
+        font-family: "Bebas Neue";
+      }
+
+      section {
+        position: relative;
+        top: 0px;
+        left: 0px;
+      }
+
+      .top {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      #again {
+        padding: 5px 20px;
+        font-size: 20px;
+        height: fit-content;
+        width: fit-content;
+      }
+
+      .between {
+        padding: 0px 20px;
+        font-size: 20px;
+        text-align: end;
+      }
+
+      .heading {
+        font-size: 50px;
+        text-align: center;
+      }
+
+      hr {
+        height: 5px;
+        border: none;
+        margin-top: 50px;
+        background-color: white;
+      }
+
+      .randomNumber {
+        background-color: white;
+        height: 75px;
+        width: 80px;
+        text-align: center;
+        font-size: 60px;
+        color: black;
+        position: relative;
+        left: 700px;
+        bottom: 50px;
+      }
+
+      #gussNumber {
+        width: 120px;
+        height: 60px;
+        font-size: 50px;
+        text-align: center;
+        background-color: black;
+        border: 1px solid white;
+        color: white;
+        margin-left: 150px;
+        margin-top: 50px;
+      }
+
+      #check {
+        font-size: 22px;
+        position: relative;
+        top: 50px;
+        right: 120px;
+      }
+
+      .start {
+        position: relative;
+        bottom: 100px;
+        left: 850px;
+        font-size: 20px;
+      }
+
+      .score {
+        position: relative;
+        bottom: 50px;
+        left: 850px;
+        font-size: 20px;
+      }
+
+      .highScore {
+        position: relative;
+        bottom: 40px;
+        left: 850px;
+        font-size: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      <div class="top">
+        <input type="button" name="again" id="again" value="Again!" />
+        <p class="between">(Between 1 to 20)</p>
+      </div>
+      <div class="heading">Guess my Number !</div>
+      <hr />
+      <div class="randomNumber">?</div>
+
+      <input
+        type="number"
+        name="Guss Number"
+        id="gussNumber"
+        placeholder="NUM"
+      />
+      <input type="button" name="Check" id="check" value="Check!" />
+      <div class="start">Start Guessing...🤔</div>
+      <div class="score">💯 Score : 20</div>
+      <div class="highScore">🏅 High Score : 0</div>
+    </section>
+
+    <script>
+      let scr = 20;
+      let highscr = 0;
+
+      let ranNum = Math.floor(Math.random() * 20 + 1);
+      document.querySelector(".randomNumber").style.display = "none".innerHTML =
+        ranNum;
+
+      console.log(ranNum);
+
+      document.getElementById("check").addEventListener("click", function () {
+        let gussNum = document.getElementById("gussNumber").value;
+
+        console.log(gussNum);
+
+        if (ranNum == gussNum) {
+          document.querySelector(".start").innerHTML = "🎉 Correct Answer!";
+          document.querySelector(".randomNumber").innerHTML = ranNum;
+          document.querySelector("body").style.backgroundColor = "green";
+          document.querySelector("#gussNumber").style.backgroundColor = "green";
+
+          if (scr > highscr) {
+            document.querySelector(".highScore").innerHTML =
+              "🏅 High Scrore : " + scr;
+          }
+
+          console.log("correct");
+        } else if (ranNum < gussNum && gussNum != "") {
+          document.querySelector(".start").innerHTML = "📈 Too High...!";
+          scr--;
+
+          console.log("big");
+        } else if (ranNum > gussNum && gussNum != "") {
+          document.querySelector(".start").innerHTML = "📉 Too Low...!";
+          scr--;
+
+          console.log("small");
+        } else {
+          document.querySelector(".start").innerHTML = "⛔ No Number...!";
+        }
+
+        document.querySelector(".score").innerHTML = "💯 Score : " + scr;
+
+        if (scr == 0) {
+          document.querySelector(".start").innerHTML =
+            "💥 You Lost The Game...!";
+        }
+      });
+
+      document.getElementById("again").addEventListener("click", function () {
+        scr = 20;
+        ranNum = Math.floor(Math.random() * 20 + 1);
+        document.querySelector(".randomNumber").innerHTML = ranNum;
+        document.querySelector("body").style.backgroundColor = "black";
+        document.querySelector("#gussNumber").style.backgroundColor = "black";
+        document.querySelector(".randomNumber").innerHTML = "?";
+        document.querySelector(".start").innerHTML = "Start Guessing...🤔";
+        document.querySelector(".score").innerHTML = "💯 Score : " + scr;
+        document.getElementById("gussNumber").value = "";
+
+        console.log(ranNum);
+      });
+    </script>
+  </body>
+</html>
